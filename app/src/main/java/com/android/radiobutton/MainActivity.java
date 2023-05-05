@@ -1,9 +1,12 @@
 package com.android.radiobutton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -45,5 +48,30 @@ String str;
         intent.putExtra("radioChosen", str);
         intent.putExtra("editValue",editText.getText().toString());
         startActivity(intent);
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            exitByBackKey();
+            return true;
+        }
+        return super.onKeyDown(keyCode,event);
+    }
+    protected void exitByBackKey(){
+        AlertDialog alartbox = new AlertDialog.Builder(this)
+                .setMessage("Do you want to exit application?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0,int arg1) {
+                        finish();
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0,int arg1) {
+
+                    }
+                })
+                .show();
     }
 }
